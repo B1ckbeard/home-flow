@@ -102,8 +102,8 @@ const App = () => {
                           <th className="text-amber-500">Эл-во</th>
                           <th className="text-sky-500">Вода</th>
                           <th>Водоотведение</th>
-                          <th>Расход</th>
-                          <th>Тариф</th>
+                          <th>Расход эл</th>
+                          <th>Расход вс</th>
                           <th>Сумма</th>
                         </tr>
                       </thead>
@@ -124,28 +124,28 @@ const App = () => {
                     className="h-10 p-1 mr-2 border-2 rounded border-gray-300 w-32"
                     type="date"
                     value={date}
-                    placeholder='date'
+                    placeholder='Дата'
                     onChange={(e) => handleDateChange(e)}
                   />
                   <input
                     className="h-10 p-1 mr-2 border-2 rounded border-gray-300"
                     type="number"
                     value={el}
-                    placeholder="Electricity"
+                    placeholder="Эл-во"
                     onChange={(e) => handleElChange(e)}
                   />
                   <input
                     className="h-10 p-1 mr-2 border-2 rounded border-gray-300"
                     type="number"
                     value={water}
-                    placeholder="Water"
+                    placeholder="Вода"
                     onChange={(e) => handleWaterChange(e)}
                   />
                   <button
                     className="h-10 p-1 border-2 rounded border-gray-300 bg-gray-100"
                     onClick={handleSave}
                   >
-                    Add
+                    Добавить
                   </button>
                 </div>
               </TabPanel>
@@ -162,8 +162,10 @@ const App = () => {
                   <th>Дата</th>
                   <th className="text-amber-500">Эл-во</th>
                   <th className="text-sky-500">Вода</th>
-                  <th>Расход</th>
-                  <th>Тариф</th>
+                  <th>Водоотведение</th>
+                  <th>Расход эл</th>
+                  <th>Расход вс</th>
+                  <th>Сумма</th>
                 </tr>
               </thead>
               <tbody className="text-center">
