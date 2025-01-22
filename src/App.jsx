@@ -8,6 +8,7 @@ const App = () => {
   const [currentObject, setCurrentObject] = useState('');
   const [date, setDate] = useState('');
   const [el, setEl] = useState('');
+  const [prevValues, setPrevValues] = useState({});
   const [water, setWater] = useState('');
   const [data, setData] = useState([]);
 
@@ -34,7 +35,21 @@ const App = () => {
 
   const handleSave = () => {
     if (currentObject && date && el && water) {
-      setData([...data, { name: currentObject, date, el, water }]);
+      const prevEl = prevValues[currentObject]?.el || el;
+      const prevWater = prevValues[currentObject]?.water || water;
+      if (el !== prevEl) {
+        console.log(`Объект: ${currentObject}, Предыдущее значение el: ${prevEl}, Текущее значение el: ${el}`);
+      }
+      if (water !== prevWater) {
+        console.log(`Объект: ${currentObject}, Предыдущее значение water: ${prevWater}, Текущее значение water: ${water}`);
+      }
+      setData([...data, { name: currentObject, date, el, water, 'diffEl': el-prevEl, 'diffWater': water-prevWater }]);
+      setPrevValues({
+        ...prevValues,
+        [currentObject]: { el, water },
+      });
+      console.log(prevValues);
+      // Сброс текущих значений
       setEl('');
       setWater('');
       setDate('');
@@ -113,6 +128,10 @@ const App = () => {
                             <td>{item.date}</td>
                             <td>{item.el}</td>
                             <td>{item.water}</td>
+                            <td>{item.water}</td>
+                            <td>{item.diffEl}</td>
+                            <td>{item.diffWater}</td>
+                            <td>{item.diffWater*50 + item.diffEl*6}</td>
                           </tr>
                           : null)}
                       </tbody>
@@ -175,6 +194,10 @@ const App = () => {
                     <td>{item.date}</td>
                     <td>{item.el}</td>
                     <td>{item.water}</td>
+                    <td>{item.water}</td>
+                    <td>{item.diffEl}</td>
+                    <td>{item.diffWater}</td>
+                    <td>{item.diffWater*50 + item.diffEl*6}</td>
                   </tr>
                 ))}
               </tbody>
