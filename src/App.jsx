@@ -49,6 +49,7 @@ const App = () => {
         [currentObject]: { el, water },
       });
       console.log(prevValues);
+      
       // Сброс текущих значений
       setEl('');
       setWater('');
