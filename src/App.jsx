@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import { FaDeleteLeft } from "react-icons/fa6";
 
 const App = () => {
   const [objectName, setObjectName] = useState('');
@@ -43,7 +44,9 @@ const App = () => {
       if (water !== prevWater) {
         console.log(`Объект: ${currentObject}, Предыдущее значение water: ${prevWater}, Текущее значение water: ${water}`);
       }
+
       setData([...data, { name: currentObject, date, el, water, 'diffEl': el-prevEl, 'diffWater': water-prevWater }]);
+
       setPrevValues({
         ...prevValues,
         [currentObject]: { el, water },
@@ -64,6 +67,12 @@ const App = () => {
       }
       setObjectName('');
     }
+  };
+
+  const handleItemDelete = (index) => {
+    const newData = data.filter((_, i) => i !== index);
+    console.log('newData', newData)
+    setData(newData);
   };
 
   useEffect(() => {
@@ -123,17 +132,33 @@ const App = () => {
                         </tr>
                       </thead>
                       <tbody className="text-center">
-                        {data.map((item, index) => item.name === obj ?
-                          <tr key={index}>
-                            <td>{item.date}</td>
-                            <td>{item.el}</td>
-                            <td>{item.water}</td>
-                            <td>{item.water}</td>
-                            <td>{item.diffEl}</td>
-                            <td>{item.diffWater}</td>
-                            <td>{item.diffWater*50 + item.diffEl*6}</td>
-                          </tr>
-                          : null)}
+                        {data.map((item, index) => {
+                          if (item.name === obj) {
+                            const lastIndex = data.map((item) => item.name).lastIndexOf(obj);
+                            return (
+                              <tr key={index}>
+                                <td>{item.date}</td>
+                                <td>{item.el}</td>
+                                <td>{item.water}</td>
+                                <td>{item.water}</td>
+                                <td>{item.diffEl}</td>
+                                <td>{item.diffWater}</td>
+                                <td>{item.diffWater * 50 + item.diffEl * 6}</td>
+                                <td>
+                                  {index === lastIndex && (
+                                    <button
+                                      //className="h-10 w-24 p-1 border-2 rounded border-black bg-red-500"
+                                      onClick={() => handleItemDelete(index)}
+                                    >
+                                      <FaDeleteLeft className="mt-1 size-8 fill-red-500"/>
+                                    </button>
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          }
+                          return null;
+                        })}
                       </tbody>
                     </table>
                   </div>
@@ -170,39 +195,6 @@ const App = () => {
               </TabPanel>
             ))}
           </Tabs>
-        }
-
-        {data.length !== 0 &&
-          <div className="p-3 border-2 rounded border-gray-300">
-            <table className="w-full">
-              <thead className="border rounded border-gray-300">
-                <tr>
-                  <th>Объект</th>
-                  <th>Дата</th>
-                  <th className="text-amber-500">Эл-во</th>
-                  <th className="text-sky-500">Вода</th>
-                  <th>Водоотведение</th>
-                  <th>Расход эл</th>
-                  <th>Расход вс</th>
-                  <th>Сумма</th>
-                </tr>
-              </thead>
-              <tbody className="text-center">
-                {data.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.name}</td>
-                    <td>{item.date}</td>
-                    <td>{item.el}</td>
-                    <td>{item.water}</td>
-                    <td>{item.water}</td>
-                    <td>{item.diffEl}</td>
-                    <td>{item.diffWater}</td>
-                    <td>{item.diffWater*50 + item.diffEl*6}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         }
       </div>
     </>
