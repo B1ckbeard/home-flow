@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import objectRoute from './routes/objects.js'
+import indicationRoute from './routes/indications.js'
 
 const app = express()
 dotenv.config()
@@ -16,6 +17,7 @@ app.use(cors()) // запросы с разных ip-адресов
 app.use(express.json())
 
 app.use('/api/objects', objectRoute)
+app.use('/api/indications', indicationRoute)
 
 async function start() {
   try {

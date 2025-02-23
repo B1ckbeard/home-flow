@@ -17,15 +17,19 @@ const App = () => {
 
   useEffect(() => {
     fetchObjects();
-    //fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchIndications();
   }, []);
 
   const fetchObjects = async () => {
-    const response = await axios.get('http://localhost:3001/api/objects/get');
+    const response = await axios.get('http://localhost:3001/api/objects');
     console.log(response.data);
     setObjects(response.data);
     setCurrentObject(response.data[0].name);
+  };
+
+  const fetchIndications = async () => {
+    const response = await axios.get('http://localhost:3001/api/indications');
+    console.log(response.data);
   };
 
   const handleObjectNameChange = (e) => {
@@ -62,12 +66,13 @@ const App = () => {
       }
       const newData = [...data, { name: currentObject, date, el, water, 'diffEl': el - prevEl, 'diffWater': water - prevWater }];
       setData(newData);
-
+      
       setPrevValues({
         ...prevValues,
         [currentObject]: { el, water },
       });
       console.log(prevValues);
+      
       setEl('');
       setWater('');
       setDate('');
