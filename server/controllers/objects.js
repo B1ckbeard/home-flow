@@ -9,7 +9,7 @@ export const getObjects = async (req, res) => {
   } catch (error) {
     console.log(error)
   }
-}
+};
 
 // saveObject
 export const saveObject = async (req, res) => {
@@ -21,7 +21,7 @@ export const saveObject = async (req, res) => {
   } catch (error) {
     res.json({ message: 'Ошибка при создании объекта' })
   }
-}
+};
 
 // Delete
 export const deleteObject = async (req, res) => {
@@ -32,37 +32,20 @@ export const deleteObject = async (req, res) => {
   } catch (error) {
     res.json({ message: 'Ошибка при удалении объекта' })
   }
-}
+};
 
 // Get Obj Indications by objId
 export const getObjIndications = async (req, res) => {
   try {
-    const object = await ObjectModel.findById(req.params.id)
-    const list = await Promise.all(
-      object.indications.map((ind) => {
-          return IndicationModel.findById(ind)
-      }),
-    )
-    res.json(list)
-  } catch (error) {
-    res.json({ message: 'Что-то пошло не так' })
-  }
-}
+    const object = await ObjectModel.findById(req.params.id).populate('indications');
 
-// Add Indication to obj
-export const addIndication = async (req, res) => {
-  const { id } = req.params;
-  const { indicationId } = req.body;
-  try {
-    const object = await ObjectModel.findById(id);
     if (!object) {
-      return res.status(404).json({ message: 'Object not found' });
+      return res.status(404).json({ message: 'Объект не найден' });
     }
-    object.indications.push(indicationId);
-    await object.save();
-    res.json(object);
+
+    res.json(object.indications);
   } catch (error) {
-    console.error('Error adding indication:', error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Ошибка при получении показаний:', error);
+    res.status(500).json({ message: 'Что-то пошло не так' });
   }
-}
+};

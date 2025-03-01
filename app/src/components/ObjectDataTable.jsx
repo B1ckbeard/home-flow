@@ -1,8 +1,9 @@
 //import React from 'react'
 import { FaDeleteLeft } from "react-icons/fa6";
 
-const ObjectDataTable = (data, onDelete) => {
-  const lastIndex = data.length - 1;
+const ObjectDataTable = (data = [], onDelete) => {
+  const safeData = Array.isArray(data) ? data.filter(item => item !== null) : [];
+  const lastIndex = safeData.length - 1;
   return (
     <div className="mb-3 p-2 border-2 rounded border-slate-300">
       <table className="w-full">
@@ -11,27 +12,19 @@ const ObjectDataTable = (data, onDelete) => {
             <th>Дата</th>
             <th className="text-amber-500">Эл-во</th>
             <th className="text-sky-500">Вода</th>
-            <th>Водоотведение</th>
-            <th>Расход эл</th>
-            <th>Расход вс</th>
-            <th>Сумма</th>
           </tr>
         </thead>
         <tbody className="text-center">
-          {data.map((item, index) => {
+          {safeData.map((item, index) => {
               return (
                 <tr key={index}>
                   <td>{item.date}</td>
                   <td>{item.el}</td>
                   <td>{item.water}</td>
-                  <td>{item.water}</td>
-                  <td>{item.diffEl}</td>
-                  <td>{item.diffWater}</td>
-                  <td>{item.diffWater * 50 + item.diffEl * 6}</td>
                   <td>
                     {index === lastIndex && (
                       <button
-                        onClick={() => onDelete(index)}
+                        onClick={() => onDelete(item._id)}
                       >
                         <FaDeleteLeft className="mt-1 size-8 fill-red-500" />
                       </button>

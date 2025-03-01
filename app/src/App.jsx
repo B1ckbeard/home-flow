@@ -6,30 +6,62 @@ import ObjectsListItem from "./components/ObjectsListItem";
 const App = () => {
   const [objectName, setObjectName] = useState('');
   const [objects, setObjects] = useState([]);
-  const [currentObject, setCurrentObject] = useState('');
+  const [currentObject, setCurrentObject] = useState({});
   const [date, setDate] = useState('');
   const [el, setEl] = useState('');
-  const [prevValues, setPrevValues] = useState({});
+  //const [prevValues, setPrevValues] = useState({});
   const [water, setWater] = useState('');
-  const [data, setData] = useState([]);
   const [objectNameError, setObjectNameError] = useState(false);
   const [curData, setCurData] = useState([]);
 
   useEffect(() => {
     fetchObjects();
-    fetchIndications();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (currentObject && Object.keys(currentObject).length !== 0) {
+      fetchObjIndications();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentObject]);
+
   const fetchObjects = async () => {
-    const response = await axios.get('http://localhost:3001/api/objects');
-    console.log(response.data);
-    setObjects(response.data);
-    setCurrentObject(response.data[0].name);
+    try {
+      const response = await axios.get('http://localhost:3001/api/objects');
+      const objects = response.data;
+      console.log('objects: ', objects);
+      setObjects(objects);
+
+      if (objects.length > 0) {
+        if (Object.keys(currentObject).length === 0) {
+          setCurrentObject(objects[0]);
+        } else {
+          setCurrentObject(objects.at(-1));
+        }
+      } else {
+        console.log('Массив objects пуст');
+      }
+    } catch (error) {
+      console.error('Ошибка при получении объектов:', error);
+    }
   };
 
-  const fetchIndications = async () => {
-    const response = await axios.get('http://localhost:3001/api/indications');
-    console.log(response.data);
+  /*
+    const fetchIndications = async () => {
+      const response = await axios.get('http://localhost:3001/api/indications');
+      console.log('indications: ', response.data);
+    };
+    */
+
+  const fetchObjIndications = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/objects/indications/${currentObject._id}`);
+      console.log('indications: ', response.data);
+      setCurData(response.data);
+    } catch (error) {
+      console.error('Ошибка при получении показаний:', error);
+    }
   };
 
   const handleObjectNameChange = (e) => {
@@ -37,23 +69,40 @@ const App = () => {
     setObjectNameError(false)
   };
 
-  const handleDateChange = (e) => {
-    setDate(e.target.value);
-  };
+  const handleDateChange = (e) => { setDate(e.target.value) };
 
-  const handleElChange = (e) => {
-    setEl(e.target.value);
-  };
+  const handleElChange = (e) => { setEl(e.target.value) };
 
-  const handleWaterChange = (e) => {
-    setWater(e.target.value);
-  };
+  const handleWaterChange = (e) => { setWater(e.target.value) };
 
   const handleTabClick = (e) => {
-    const curObjName = e.target.textContent
-    setCurrentObject(curObjName);
+    const curObjName = e.target.textContent;
+    const curObj = objects.find((el) => el.name === curObjName);
+    if (curObj) {
+      setCurrentObject(curObj);
+    }
   };
 
+  const handleObjectSave = async () => {
+    if (objectName) {
+      if (objects.includes(objectName)) {
+        setObjectNameError(true);
+      } else {
+        setObjectNameError(false);
+        await axios.post('http://localhost:3001/api/objects/save', { name: objectName });
+        await fetchObjects();
+        setObjectName('');
+      }
+    }
+  };
+
+  const handleObjectDelete = async () => {
+    await axios.post(`http://localhost:3001/api/objects/delete/${currentObject._id}`);
+    await fetchObjects();
+    setCurrentObject(objects[0]);
+  };
+
+  /*
   const handleSave = () => {
     if (currentObject && date && el && water) {
       const prevEl = prevValues[currentObject]?.el || el;
@@ -78,46 +127,46 @@ const App = () => {
       setDate('');
     }
   };
+  */
 
-  const handleItemDelete = (index) => {
-    const newData = data.filter((_, i) => i !== index);
-    setData(newData);
-  };
+  const handleSaveIndication = async () => {
+    if (currentObject && date && el && water) {
+      try {
+        const objectId = currentObject._id
+        const response = await axios.post('http://localhost:3001/api/indications/create', {
+          date,
+          el,
+          water,
+          objectId,
+        });
+        const newIndication = response.data;
 
-  const handleObjectSave = async () => {
-    if (objectName) {
-      if (objects.includes(objectName)) {
-        setObjectNameError(true);
-      } else {
-        setObjectNameError(false);
-        await axios.post('http://localhost:3001/api/objects/save', { name: objectName });
-        await fetchObjects();
-        setCurrentObject(objectName);
-        setObjectName('');
+        if (!newIndication || !newIndication._id) {
+          throw new Error("Не удалось создать запись или получить её ID");
+        }
+
+        setEl('');
+        setWater('');
+        setDate('');
+
+        console.log("Новая запись успешно создана и добавлена:", newIndication);
+        fetchObjIndications();
+      } catch (error) {
+        console.error("Ошибка при сохранении показания:", error);
       }
     }
-  };
-
-  const handleObjectDelete = async () => {
-    const curObjId = objects.find((el) => el.name === currentObject)._id;
-    await axios.post(`http://localhost:3001/api/objects/delete/${curObjId}`);
-    fetchObjects();
-  };
-
-  const filterCurData = () => {
-    const filteredData = data.filter(item => item.name === currentObject);
-    setCurData(filteredData);
   }
 
-  useEffect(() => {
-    filterCurData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentObject, data]);
+  const handleDeleteIndication = async (id) => {
+    await axios.post(`http://localhost:3001/api/indications/delete/${id}`);
+    console.log(id, 'deleted')
+    fetchObjIndications();
+  };
 
   return (
     <>
       <div className="min-h-screen w-full flex flex-row items-center justify-center
-      bg-gradient-to-r from-slate-400 via-slate-300 to-slate-400 py-3">
+      bg-gradient-to-r from-slate-200 to-slate-600 py-3">
         <div className="w-1/5 h-screen border-2 rounded border-gray-400 mr-2">
           <div className="h-20 top-0 w-full flex flex-wrap items-center justify-center p-2 mb-6">
             <input
@@ -173,12 +222,14 @@ const App = () => {
                 />
                 <button
                   className="h-10 p-1 border-2 rounded border-slate-300 bg-slate-100"
-                  onClick={handleSave}
+                  onClick={handleSaveIndication}
                 >
                   Добавить
                 </button>
               </div>
-              {ObjectDataTable(curData, handleItemDelete)}
+              {Object.keys(currentObject).length !== 0 && (
+                ObjectDataTable(Array.isArray(curData) ? curData : [], handleDeleteIndication)
+              )}
             </div>
           }
         </div>

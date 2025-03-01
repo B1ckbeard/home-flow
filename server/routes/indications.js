@@ -8,8 +8,8 @@ const router = new Router()
 router.get('/', getAll)
 
 // Create Indication
-// http://localhost:3001/api/indications/save
-router.post('/create-indication', createIndication)
+// http://localhost:3001/api/indications/create
+router.post('/create', createIndication)
 
 // Delete
 // http://localhost:3001/api/indications/delete/:id
