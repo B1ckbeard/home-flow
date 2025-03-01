@@ -47,13 +47,6 @@ const App = () => {
     }
   };
 
-  /*
-    const fetchIndications = async () => {
-      const response = await axios.get('http://localhost:3001/api/indications');
-      console.log('indications: ', response.data);
-    };
-    */
-
   const fetchObjIndications = async () => {
     try {
       const response = await axios.get(`http://localhost:3001/api/objects/indications/${currentObject._id}`);
@@ -167,10 +160,10 @@ const App = () => {
     <>
       <div className="min-h-screen w-full flex flex-row items-center justify-center
       bg-gradient-to-r from-slate-200 to-slate-600 py-3">
-        <div className="w-1/5 h-screen border-2 rounded border-gray-400 mr-2">
-          <div className="h-20 top-0 w-full flex flex-wrap items-center justify-center p-2 mb-6">
+        <div className="w-1/5 h-screen p-2 border-2 rounded border-gray-400 mr-2">
+          <div className="w-full flex flex-wrap items-center justify-center mb-3">
             <input
-              className={`h-10 w-full p-1 mb-1 border-2 rounded ${objectNameError ? 'border-red-400' : 'border-gray-400'}`}
+              className={`h-10 w-full p-1 mb-2 border-2 rounded ${objectNameError ? 'border-red-400' : 'border-gray-400'}`}
               type="text"
               value={objectName}
               placeholder="Введите название"
@@ -184,7 +177,10 @@ const App = () => {
               Добавить объект
             </button>
           </div>
-          <div className="w-full flex flex-col items-center justify-center gap-1 px-2">
+          {objects.length === 0 &&
+            <p className="text-center">Список пуст</p>
+          }
+          <div className="w-full flex flex-col items-center justify-center gap-2">
             {objects.map((obj, index) => (
               <li key={index} className="list-none w-full">
                 {ObjectsListItem(obj, currentObject, handleTabClick, handleObjectDelete)}
@@ -192,29 +188,26 @@ const App = () => {
             ))}
           </div>
         </div>
-        <div className="w-4/5 h-screen border-2 rounded border-slate-400">
-          {objects.length === 0 &&
-            <p className="text-center mt-2">Список пуст</p>
-          }
+        <div className="w-4/5 h-screen p-2 border-2 rounded border-slate-400">
           {objects.length > 0 &&
-            <div className="mb-5 p-2 w-full flex flex-col justify-center">
+            <div className="mb-1 w-full flex flex-col justify-center">
               <div className="flex items-center justify-center mb-2">
                 <input
-                  className="h-10 p-1 mr-2 border-2 rounded border-slate-300"
+                  className="h-10 p-1 mr-1 border-2 rounded border-slate-300"
                   type="date"
                   value={date}
                   placeholder='Дата'
                   onChange={(e) => handleDateChange(e)}
                 />
                 <input
-                  className="h-10 p-1 mr-2 border-2 rounded border-slate-300"
+                  className="h-10 p-1 mr-1 border-2 rounded border-slate-300"
                   type="number"
                   value={el}
                   placeholder="Эл-во"
                   onChange={(e) => handleElChange(e)}
                 />
                 <input
-                  className="h-10 p-1 mr-2 border-2 rounded border-slate-300"
+                  className="h-10 p-1 mr-1 border-2 rounded border-slate-300"
                   type="number"
                   value={water}
                   placeholder="Вода"
