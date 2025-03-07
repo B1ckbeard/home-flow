@@ -1,5 +1,4 @@
 import ObjectModel from "../models/Object.js"
-import IndicationModel from "../models/Indication.js"
 
 // Get
 export const getObjects = async (req, res) => {

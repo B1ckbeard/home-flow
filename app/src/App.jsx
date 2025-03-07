@@ -161,9 +161,9 @@ const App = () => {
       <div className="min-h-screen w-full flex flex-row items-center justify-center
       bg-gradient-to-r from-slate-200 to-slate-600 py-3">
         <div className="w-1/5 h-screen p-2 border-2 rounded border-gray-400 mr-2">
-          <div className="w-full flex flex-wrap items-center justify-center mb-3">
+          <div className="w-full flex flex-wrap items-center justify-center mb-2">
             <input
-              className={`h-10 w-full p-1 mb-2 border-2 rounded ${objectNameError ? 'border-red-400' : 'border-gray-400'}`}
+              className={`h-10 w-full p-1 mb-1 border-2 rounded ${objectNameError ? 'border-red-400' : 'border-gray-400'}`}
               type="text"
               value={objectName}
               placeholder="Введите название"
@@ -180,7 +180,7 @@ const App = () => {
           {objects.length === 0 &&
             <p className="text-center">Список пуст</p>
           }
-          <div className="w-full flex flex-col items-center justify-center gap-2">
+          <div className="w-full flex flex-col items-center justify-center gap-1">
             {objects.map((obj, index) => (
               <li key={index} className="list-none w-full">
                 {ObjectsListItem(obj, currentObject, handleTabClick, handleObjectDelete)}

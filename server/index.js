@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import authRoute from './routes/auth.js'
 import objectRoute from './routes/objects.js'
 import indicationRoute from './routes/indications.js'
 
@@ -13,9 +14,10 @@ const DB_USER = process.env.DB_USER
 const DB_PASSWORD = process.env.DB_PASSWORD
 const DB_NAME = process.env.DB_NAME
 
-app.use(cors()) // запросы с разных ip-адресов
+app.use(cors())
 app.use(express.json())
 
+app.use('/api/auth', authRoute)
 app.use('/api/objects', objectRoute)
 app.use('/api/indications', indicationRoute)
 

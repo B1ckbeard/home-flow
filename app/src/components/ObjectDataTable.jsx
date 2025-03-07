@@ -17,6 +17,8 @@ const ObjectDataTable = (data = [], onDelete) => {
                 <th>Дата</th>
                 <th className="text-amber-500">Эл-во</th>
                 <th className="text-sky-500">Вода</th>
+                <th>Расход эл-ва</th>
+                <th>Расход воды</th>
               </tr>
             </thead>
             <tbody className="text-center">
@@ -26,6 +28,8 @@ const ObjectDataTable = (data = [], onDelete) => {
                     <td>{item.date}</td>
                     <td>{item.el}</td>
                     <td>{item.water}</td>
+                    <td>Расход эл-ва</td>
+                    <td>Расход воды</td>
                     <td className="h-10 flex items-center justify-center">
                       {index === lastIndex && (
                         <button
