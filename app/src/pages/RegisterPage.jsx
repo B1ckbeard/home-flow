@@ -62,7 +62,8 @@ const RegisterPage = () => {
             <button
               type='submit'
               onClick={handleSubmit}
-              className='flex justify-center items-center text-xs bg-gray-600 text-white rounded-sm py-2 px-4'
+              className='flex justify-center items-center text-xs bg-gray-600 text-white shadow-sm shadow-slate-800
+               rounded-sm py-2 px-4'
             >
               Зарегистрироваться
             </button>

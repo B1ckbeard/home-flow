@@ -63,13 +63,15 @@ const LoginPage = () => {
             <button
               type='submit'
               onClick={handleSubmit}
-              className='flex justify-center items-center text-xs bg-gray-600 text-white rounded-sm py-2 px-4'
+              className='flex justify-center items-center text-xs bg-gray-600 text-white shadow-sm shadow-slate-800
+                rounded-sm py-2 px-4'
             >
               Войти
             </button>
             <Link
               to='/register'
-              className='flex justify-center items-center text-xs text-white'
+              className='flex justify-center items-center text-xs 	
+                text-decoration-line: underline'
             >
               Зарегистрироваться
             </Link>
@@ -77,7 +79,7 @@ const LoginPage = () => {
         </form>
       </div>
     </>
-    
+
   )
 }
 
