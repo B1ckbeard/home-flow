@@ -160,12 +160,11 @@ const MainPage = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen w-full flex flex-row items-center justify-center
-      bg-gradient-to-r from-slate-200 to-slate-600">
-        <div className="w-1/5 h-screen px-2 border-r-2 border-gray-400 pt-12">
+      <div className="min-h-screen w-full flex flex-row items-center justify-center bg-gray-100">
+        <div className="w-1/5 h-screen px-2 bg-white shadow-md pt-14">
           <div className="w-full flex flex-wrap items-center justify-center mb-2">
             <input
-              className={`h-10 w-full p-1 mb-1 border-2 rounded ${objectNameError ? 'border-red-400' : 'border-gray-400'}`}
+              className={`h-10 w-full p-1 mb-1 border rounded-md ${objectNameError ? 'border-red-400' : 'border-gray-400'}`}
               type="text"
               value={objectName}
               placeholder="Введите название"
@@ -173,7 +172,7 @@ const MainPage = () => {
             />
             {objectNameError && <p className='text-black mt-1'>Объект с таким названием уже есть</p>}
             <button
-              className="h-10 w-full p-1 border-2 rounded border-slate-400 bg-slate-200 truncate"
+              className="h-10 w-full rounded-md bg-gray-600 truncate text-white"
               onClick={handleObjectSave}
             >
               Добавить объект
@@ -190,43 +189,45 @@ const MainPage = () => {
             ))}
           </div>
         </div>
-        <div className="w-4/5 h-screen p-2 border-slate-400 pt-12">
-          {objects.length > 0 &&
-            <div className="mb-1 w-full flex flex-col justify-center">
-              <div className="flex items-center justify-center mb-2">
-                <input
-                  className="h-10 p-1 mr-1 border-2 rounded border-slate-300"
-                  type="date"
-                  value={date}
-                  placeholder='Дата'
-                  onChange={(e) => handleDateChange(e)}
-                />
-                <input
-                  className="h-10 p-1 mr-1 border-2 rounded border-slate-300"
-                  type="number"
-                  value={el}
-                  placeholder="Эл-во"
-                  onChange={(e) => handleElChange(e)}
-                />
-                <input
-                  className="h-10 p-1 mr-1 border-2 rounded border-slate-300"
-                  type="number"
-                  value={water}
-                  placeholder="Вода"
-                  onChange={(e) => handleWaterChange(e)}
-                />
-                <button
-                  className="h-10 p-1 border-2 rounded border-slate-300 bg-slate-100"
-                  onClick={handleSaveIndication}
-                >
-                  Добавить
-                </button>
+        <div className="w-4/5 h-screen pl-4 pt-10">
+          <div className="h-full bg-white pt-4 shadow-md">
+            {objects.length > 0 &&
+              <div className="w-full flex flex-col justify-center">
+                <div className="flex items-center justify-center mb-1">
+                  <input
+                    className="h-10 p-1 mr-1 border rounded border-gray-400"
+                    type="date"
+                    value={date}
+                    placeholder='Дата'
+                    onChange={(e) => handleDateChange(e)}
+                  />
+                  <input
+                    className="h-10 p-1 mr-1 border rounded border-gray-400"
+                    type="number"
+                    value={el}
+                    placeholder="Эл-во"
+                    onChange={(e) => handleElChange(e)}
+                  />
+                  <input
+                    className="h-10 p-1 mr-1 border rounded border-gray-400"
+                    type="number"
+                    value={water}
+                    placeholder="Вода"
+                    onChange={(e) => handleWaterChange(e)}
+                  />
+                  <button
+                    className="h-10 px-2 rounded-md bg-gray-600 text-white"
+                    onClick={handleSaveIndication}
+                  >
+                    Добавить
+                  </button>
+                </div>
+                {Object.keys(currentObject).length !== 0 && (
+                  ObjectDataTable(Array.isArray(curData) ? curData : [], handleDeleteIndication)
+                )}
               </div>
-              {Object.keys(currentObject).length !== 0 && (
-                ObjectDataTable(Array.isArray(curData) ? curData : [], handleDeleteIndication)
-              )}
-            </div>
-          }
+            }
+          </div>
         </div>
       </div>
     </>

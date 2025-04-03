@@ -5,14 +5,14 @@ const ObjectDataTable = (data = [], onDelete) => {
   const safeData = Array.isArray(data) ? data.filter(item => item !== null) : [];
   const lastIndex = safeData.length - 1;
   return (
-    <div>
+    <div className="px-3">
       {safeData.length === 0 &&
-        <p className="text-center">Список пуст</p>
+        <p className="text-center mb-2">Список пуст</p>
       }
       {safeData.length !== 0 &&
-        <div className="border-2 rounded border-slate-300">
+        <div className="border border-gray-400">
           <table className="w-full">
-            <thead className="border-b-2 rounded border-slate-300">
+            <thead className="border-b border-gray-400">
               <tr className="h-10">
                 <th>Дата</th>
                 <th className="text-amber-500">Эл-во</th>

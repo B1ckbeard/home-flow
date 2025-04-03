@@ -5,9 +5,8 @@ const ObjectsListItem = (obj, curObj, onClick, onDelete) => {
   return (
     <div
       onClick={(e) => onClick(e)}
-      className={`h-10 w-full cursor-pointer truncate border-2 rounded flex items-center px-1
-        ${obj.name === curObj.name ? 'justify-between  border-slate-400 bg-slate-50' :
-        'border-slate-400 bg-slate-300'}`
+      className={`h-10 w-full cursor-pointer truncate rounded-md flex items-center px-1 border border-gray-400
+        ${obj.name === curObj.name ? 'justify-between bg-gray-200' : 'bg-transparent'}`
       }
     >
       {obj.name}

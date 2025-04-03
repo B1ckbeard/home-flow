@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
-    <div className="h-10 w-full bg-gradient-to-r from-slate-200 to-slate-600
-    flex items-center justify-between fixed px-4 shadow-sm shadow-slate-800">
+    <div className="h-10 w-full bg-gray-200 flex items-center justify-between fixed px-4 shadow-sm shadow-gray-500">
       <div className="">
         <Link
           to='/'
@@ -15,13 +14,13 @@ const Header = () => {
       <div className="flex flex-row">
         <Link
           to='/login'
-          className='flex justify-center items-center text-xs text-white px-2 border-r mr-2'
+          className='flex justify-center items-center text-xs text-black px-2 border-r border-black mr-2'
         >
           Войти
         </Link>
         <Link
           to='/register'
-          className='flex justify-center items-center text-xs text-white'
+          className='flex justify-center items-center text-xs text-black'
         >
           Зарегистрироваться
         </Link>
