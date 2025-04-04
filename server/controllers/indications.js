@@ -56,15 +56,22 @@ export const getById = async (req, res) => {
 export const deleteIndication = async (req, res) => {
   try {
     const { id } = req.params;
-
     await IndicationModel.findByIdAndDelete(id);
-
     await ObjectModel.updateMany(
       { indications: id },
       { $pull: { indications: id } }
     );
-
     res.json({ message: 'показание удалено' });
+  } catch (error) {
+    res.json({ message: 'Ошибка при удалении' })
+  }
+}
+
+// delete all indications
+export const deleteAllIndications = async (req, res) => {
+  try {
+    await IndicationModel.collection.drop();
+    res.json({ message: 'показания удалены' });
   } catch (error) {
     res.json({ message: 'Ошибка при удалении' })
   }

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { saveObject, getObjects, deleteObject, getObjIndications } from "../controllers/objects.js";
+import { saveObject, getObjects, deleteObject, deleteAllObjects, getObjIndications } from "../controllers/objects.js";
 
 const router = new Router()
 
@@ -14,6 +14,10 @@ router.post('/save', saveObject)
 // Delete
 // http://localhost:3001/api/objects/delete/:id
 router.post('/delete/:id', deleteObject)
+
+// Delete all
+// http://localhost:3001/api/objects/delete/all
+router.get('/delete/all', deleteAllObjects)
 
 // Get Obj Indications
 // http://localhost:3001/api/objects/indications/:id

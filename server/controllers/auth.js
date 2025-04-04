@@ -80,3 +80,27 @@ export const login = async (req, res) => {
       res.json({ message: 'Ошибка при авторизации.' })
   }
 };
+
+// Get users
+export const getUsers = async (req, res) => {
+  try {
+    const users = await UserModel.find();
+    res.json(users);
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+// Get user's objects
+export const getUserObjects = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.params.id).populate('objects');
+    if (!user) {
+      return res.status(404).json({ message: 'Юзер не найден' });
+    }
+    res.json(user.objects);
+  } catch (error) {
+    console.error('Ошибка при получении списка объектов:', error);
+    res.status(500).json({ message: 'Что-то пошло не так' });
+  }
+};

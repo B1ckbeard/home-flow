@@ -10,13 +10,13 @@ const ObjectDataTable = (data = [], onDelete) => {
         <p className="text-center mb-2">Список пуст</p>
       }
       {safeData.length !== 0 &&
-        <div className="border border-gray-400">
+        <div className="border border-gray-400 rounded">
           <table className="w-full">
-            <thead className="border-b border-gray-400">
+            <thead className="border-b border-gray-400 rounded">
               <tr className="h-10">
                 <th>Дата</th>
-                <th className="text-amber-500">Эл-во</th>
-                <th className="text-sky-500">Вода</th>
+                <th>Эл-во</th>
+                <th>Вода</th>
                 <th>Расход эл-ва</th>
                 <th>Расход воды</th>
               </tr>

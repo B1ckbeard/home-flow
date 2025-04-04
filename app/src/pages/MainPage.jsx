@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import ObjectDataTable from "../components/ObjectDataTable";
 import ObjectsListItem from "../components/ObjectsListItem";
 import Header from "../components/Header";
 
 const MainPage = () => {
-
   const [objectName, setObjectName] = useState('');
   const [objects, setObjects] = useState([]);
   const [currentObject, setCurrentObject] = useState({});
@@ -15,10 +15,19 @@ const MainPage = () => {
   const [water, setWater] = useState('');
   const [objectNameError, setObjectNameError] = useState(false);
   const [curData, setCurData] = useState([]);
+  const [curUser, setCurUser] = useState({});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchObjects();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const userData = JSON.parse(localStorage.getItem('homeFlowUser')) || [];
+    if (userData.token) {
+      setCurUser(userData);
+      fetchUserObjects(userData.userId);
+    } else {
+      navigate('/login');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -28,9 +37,32 @@ const MainPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentObject]);
 
+  /*
   const fetchObjects = async () => {
     try {
       const response = await axios.get('http://localhost:3001/api/objects');
+      const objects = response.data;
+      console.log('objects: ', objects);
+      setObjects(objects);
+
+      if (objects.length > 0) {
+        if (Object.keys(currentObject).length === 0) {
+          setCurrentObject(objects[0]);
+        } else {
+          setCurrentObject(objects.at(-1));
+        }
+      } else {
+        console.log('Массив objects пуст');
+      }
+    } catch (error) {
+      console.error('Ошибка при получении объектов:', error);
+    }
+  };
+  */
+
+  const fetchUserObjects = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/auth/objects/${userId}`);
       const objects = response.data;
       console.log('objects: ', objects);
       setObjects(objects);
@@ -84,8 +116,10 @@ const MainPage = () => {
         setObjectNameError(true);
       } else {
         setObjectNameError(false);
-        await axios.post('http://localhost:3001/api/objects/save', { name: objectName });
-        await fetchObjects();
+        await axios.post('http://localhost:3001/api/objects/save', { name: objectName, userId:curUser.userId });
+        //await fetchObjects();
+        //console.log(curUser)
+        await fetchUserObjects(curUser.userId);
         setObjectName('');
       }
     }
@@ -93,7 +127,8 @@ const MainPage = () => {
 
   const handleObjectDelete = async () => {
     await axios.post(`http://localhost:3001/api/objects/delete/${currentObject._id}`);
-    await fetchObjects();
+    //await fetchObjects();
+    await fetchUserObjects(curUser.userId);
     setCurrentObject(objects[0]);
   };
 
@@ -157,14 +192,15 @@ const MainPage = () => {
     console.log(id, 'deleted')
     fetchObjIndications();
   };
+
   return (
     <>
       <Header />
-      <div className="min-h-screen w-full flex flex-row items-center justify-center bg-gray-100">
-        <div className="w-1/5 h-screen px-2 bg-white shadow-md pt-14">
-          <div className="w-full flex flex-wrap items-center justify-center mb-2">
+      <div className="min-h-screen w-full flex flex-row items-center justify-center">
+        <div className="w-1/5 h-screen px-3 bg-gray-100 shadow-md pt-14 border-r">
+          <div className="w-full flex flex-wrap items-center justify-center mb-4">
             <input
-              className={`h-10 w-full p-1 mb-1 border rounded-md ${objectNameError ? 'border-red-400' : 'border-gray-400'}`}
+              className={`h-10 w-full p-1 mb-1 outline-none border rounded ${objectNameError ? 'border-red-400' : 'border-gray-400'}`}
               type="text"
               value={objectName}
               placeholder="Введите название"
@@ -172,11 +208,12 @@ const MainPage = () => {
             />
             {objectNameError && <p className='text-black mt-1'>Объект с таким названием уже есть</p>}
             <button
-              className="h-10 w-full rounded-md bg-gray-600 truncate text-white"
+              className="h-10 w-full rounded bg-gray-700 truncate text-white mb-4"
               onClick={handleObjectSave}
             >
               Добавить объект
             </button>
+            <div className="w-full border-b border-gray-400"></div>
           </div>
           {objects.length === 0 &&
             <p className="text-center">Список пуст</p>
@@ -189,34 +226,34 @@ const MainPage = () => {
             ))}
           </div>
         </div>
-        <div className="w-4/5 h-screen pl-4 pt-10">
-          <div className="h-full bg-white pt-4 shadow-md">
+        <div className="w-4/5 h-screen pt-10">
+          <div className="h-full bg-white pt-4">
             {objects.length > 0 &&
               <div className="w-full flex flex-col justify-center">
                 <div className="flex items-center justify-center mb-1">
                   <input
-                    className="h-10 p-1 mr-1 border rounded border-gray-400"
+                    className="h-10 p-1 mr-1 outline-none border rounded border-gray-400"
                     type="date"
                     value={date}
                     placeholder='Дата'
                     onChange={(e) => handleDateChange(e)}
                   />
                   <input
-                    className="h-10 p-1 mr-1 border rounded border-gray-400"
+                    className="h-10 p-1 mr-1 outline-none border rounded border-gray-400"
                     type="number"
                     value={el}
                     placeholder="Эл-во"
                     onChange={(e) => handleElChange(e)}
                   />
                   <input
-                    className="h-10 p-1 mr-1 border rounded border-gray-400"
+                    className="h-10 p-1 mr-1 outline-none border rounded border-gray-400"
                     type="number"
                     value={water}
                     placeholder="Вода"
                     onChange={(e) => handleWaterChange(e)}
                   />
                   <button
-                    className="h-10 px-2 rounded-md bg-gray-600 text-white"
+                    className="h-10 px-2 rounded bg-gray-700 text-white"
                     onClick={handleSaveIndication}
                   >
                     Добавить

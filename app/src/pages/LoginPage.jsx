@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import axios from "axios";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Header from "../components/Header";
 
 const LoginPage = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const navigate = useNavigate();
 
   const login = async () => {
     try {
@@ -15,6 +17,9 @@ const LoginPage = () => {
       });
       if (response.data.token) {
         console.log("Вы вошли в систему")
+        const userData = {'username': username, 'userId': response.data.user._id, 'token': response.data.token}
+        window.localStorage.setItem('homeFlowUser', JSON.stringify(userData))
+        navigate('/');
       } else {
         console.log("Ошибка при авторизации");
       }
@@ -43,7 +48,7 @@ const LoginPage = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder='Username'
-              className='text-black w-full rounded bg-gray-200 border py-1 px-2 text-xs outline-none placeholder:text-gray-500'
+              className='text-black w-full rounded border py-1 px-2 text-xs outline-none'
             />
           </label>
 
@@ -54,7 +59,7 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder='Password'
-              className='mb-6 text-black w-full rounded bg-gray-200 border py-1 px-2 text-xs outline-none placeholder:text-gray-500'
+              className='mb-6 text-black w-full rounded border py-1 px-2 text-xs outline-none'
             />
           </label>
 
@@ -62,8 +67,7 @@ const LoginPage = () => {
             <button
               type='submit'
               onClick={handleSubmit}
-              className='flex justify-center items-center text-xs bg-gray-600 text-white shadow-sm shadow-gray-800
-                rounded-sm py-2 px-4'
+              className='flex justify-center items-center text-xs bg-gray-700 text-white rounded py-2 px-4'
             >
               Войти
             </button>
