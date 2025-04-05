@@ -4,6 +4,7 @@ import axios from "axios";
 import ObjectDataTable from "../components/ObjectDataTable";
 import ObjectsListItem from "../components/ObjectsListItem";
 import Header from "../components/Header";
+import { Toaster } from 'react-hot-toast';
 
 const MainPage = () => {
   const [objectName, setObjectName] = useState('');
@@ -196,6 +197,7 @@ const MainPage = () => {
   return (
     <>
       <Header />
+      <Toaster/>
       <div className="min-h-screen w-full flex flex-row items-center justify-center">
         <div className="w-1/5 h-screen px-3 bg-gray-100 shadow-md pt-14 border-r">
           <div className="w-full flex flex-wrap items-center justify-center mb-4">

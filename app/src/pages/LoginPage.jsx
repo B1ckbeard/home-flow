@@ -2,6 +2,7 @@ import { useState } from 'react'
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom'
 import Header from "../components/Header";
+import toast, { Toaster } from 'react-hot-toast';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('')
@@ -16,12 +17,18 @@ const LoginPage = () => {
         password
       });
       if (response.data.token) {
-        console.log("Вы вошли в систему")
+        //console.log("Вы вошли в систему")
+        toast.success('Вы вошли в систему', {
+          position: "bottom-center"
+        })
         const userData = {'username': username, 'userId': response.data.user._id, 'token': response.data.token}
         window.localStorage.setItem('homeFlowUser', JSON.stringify(userData))
         navigate('/');
       } else {
-        console.log("Ошибка при авторизации");
+        toast.error('Ошибка при авторизации', {
+          position: "bottom-center"
+        })
+        //console.log("Ошибка при авторизации");
       }
     } catch (error) {
       console.error("Ошибка при авторизации", error);
@@ -35,6 +42,7 @@ const LoginPage = () => {
   return (
     <>
       <Header />
+      <Toaster />
       <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
         <form
           onSubmit={(e) => e.preventDefault()}

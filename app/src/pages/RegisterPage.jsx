@@ -2,12 +2,13 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from "../components/Header";
 import axios from "axios";
+import toast, { Toaster } from 'react-hot-toast';
 
 const RegisterPage = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const register = async () => {
     try {
@@ -15,13 +16,17 @@ const RegisterPage = () => {
         username,
         password
       });
-      if (response.data.token) {
-        console.log("Вы зарегистрировались")
-        const userData = {'username': username, 'userId': response.data.newUser._id, 'token': response.data.token}
+      if (response.data.token) {        
+        toast.success('Вы успешно зарегистрировались!', {
+          position: "bottom-center"
+        })
+        const userData = { 'username': username, 'userId': response.data.newUser._id, 'token': response.data.token }
         window.localStorage.setItem('homeFlowUser', JSON.stringify(userData))
         navigate('/');
       } else {
-        console.log("Ошибка при регистрации");
+        toast.error('Ошибка при регистрации', {
+          position: "bottom-center"
+        })
       }
     } catch (error) {
       console.error("Ошибка при регистрации", error);
@@ -35,6 +40,7 @@ const RegisterPage = () => {
   return (
     <>
       <Header />
+      <Toaster />
       <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
         <form
           onSubmit={(e) => e.preventDefault()}
