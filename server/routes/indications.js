@@ -13,6 +13,7 @@ router.post('/create', createIndication)
 
 // Delete
 // http://localhost:3001/api/indications/delete/:id
+// поменять на http://localhost:3001/api/indications/:id/delete
 router.post('/delete/:id', deleteIndication)
 
 // Delete All
