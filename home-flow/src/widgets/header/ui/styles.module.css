@@ -1,0 +1,60 @@
+.header {
+    height: 40px;
+    width: 100%;
+    background-color: #333333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    padding: 16px;
+}
+
+.titleBlock {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+}
+
+.headerLink {
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+}
+
+.auth {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.authText {
+    color: white;
+    font-size: 16px;
+}
+
+.authButton {
+    background-color: #333333;
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 4px 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.authLinkLeft {
+    color: white;
+    font-size: 16px;
+}
+
+.authDivider {
+    margin: 0 8px;
+    color: white;
+}
+
+.authLink {
+    color: white;
+    font-size: 16px;
+}
