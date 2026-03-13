@@ -1,0 +1,28 @@
+.item {
+    height: 40px;
+    width: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    border: 1px solid #9ca3af;
+    background-color: transparent;
+}
+
+.item:hover {
+    background-color: #e5e7eb;
+}
+
+.active {
+    background-color: #d1d5db;
+}
+
+.deleteButton {
+    width: 32px;
+    height: 32px;
+    fill: #ef4444;
+}

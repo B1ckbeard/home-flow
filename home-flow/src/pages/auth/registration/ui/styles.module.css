@@ -1,0 +1,72 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    width: 100%;
+    background-color: #f5f5f5;
+}
+
+.registerForm {
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.formTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333333;
+    text-align: center;
+    margin-bottom: 16px;
+    cursor: default;
+}
+
+.formFields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.inputField {
+    color: black;
+    width: 100%;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 16px;
+}
+
+.inputError {
+    border-color: red;
+}
+
+.inputErrorText {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.formButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.registerButton {
+    width: 100%;
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    background-color: #333333;
+    color: white;
+    cursor: pointer;
+}

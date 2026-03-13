@@ -1,0 +1,40 @@
+.wrapper {
+    padding: 0 12px;
+}
+
+.emptyListText {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.table {
+    width: 100%;
+    border: 1px solid #9ca3af;
+    border-radius: 4px;
+}
+
+.tableHead {
+    border-bottom: 1px solid #9ca3af;
+    border-radius: 4px;
+}
+
+.tableRow {
+    height: 40px;
+}
+
+.tableBody {
+    text-align: center;
+}
+
+.tableDeleteItem {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleteButton {
+    width: 32px;
+    height: 32px;
+    fill: #ef4444;
+}
