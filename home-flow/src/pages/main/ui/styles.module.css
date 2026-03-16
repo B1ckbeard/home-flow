@@ -1,0 +1,120 @@
+.mainPage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    width: 100%;
+}
+
+.areasSidebar {
+    width: 20%;
+    height: 100%;
+    padding: 20px;
+    background-color: #F4F4F4;
+    border-right: 1px solid #333333;
+}
+
+.areaCreateForm {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.areaFormInput {
+    color: black;
+    width: 100%;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.areaFormInputError {
+    border-color: red;
+}
+
+.areaFormErrorText {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.areaFormButton {
+    width: 100%;
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    background-color: #333333;
+    color: white;
+    cursor: pointer;
+}
+
+.areasList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.areasListEmpty {
+    text-align: center;
+    color: #333333;
+    font-size: 16px;
+}
+
+.indicationsContent {
+    width: 80%;
+    height: 100%;
+    padding: 20px;
+    background-color: #F4F4F4;
+}
+
+.indicationsEmpty {
+    text-align: center;
+    color: #333333;
+    font-size: 16px;
+}
+
+.indicationsWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.indicationCreateForm {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.indicationFormInput {
+    color: black;
+    width: auto;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.indicationFormButton {
+    width: auto;
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    background-color: #333333;
+    color: white;
+    cursor: pointer;
+}
