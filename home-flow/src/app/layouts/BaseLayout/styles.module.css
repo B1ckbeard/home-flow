@@ -7,11 +7,9 @@
 
 .main {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    max-width: 1440px;
     width: 100%;
     align-self: center;
-    padding: 20px;
     flex: 1;
+    height: 100%;
 }

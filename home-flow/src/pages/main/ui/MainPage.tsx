@@ -1,4 +1,4 @@
-// import styles from "./styles.module.css";
+import styles from "./styles.module.css";
 import { useState, useEffect, type ChangeEvent } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
@@ -233,89 +233,86 @@ const MainPage = () => {
   };
 
   return (
-    <>
-      <div className="min-h-screen w-full flex flex-row items-center justify-center">
-        <div className="w-1/5 h-screen px-3 bg-gray-100 shadow-md pt-14 border-r">
-          <div className="w-full flex flex-wrap items-center justify-center mb-4">
-            <input
-              className={`h-10 w-full p-1 mb-1 outline-none border rounded ${objectNameError ? "border-red-400" : "border-gray-400"}`}
-              type="text"
-              value={objectName}
-              placeholder="Введите название"
-              onChange={(e) => handleObjectNameChange(e)}
-            />
-            {objectNameError && (
-              <p className="text-black mt-1">
-                Объект с таким названием уже есть
-              </p>
-            )}
-            <button
-              className="h-10 w-full rounded bg-gray-700 truncate text-white mb-4"
-              onClick={handleObjectSave}
-            >
-              Добавить объект
-            </button>
-            <div className="w-full border-b border-gray-400"></div>
-          </div>
-          {objects.length === 0 && <p className="text-center">Список пуст</p>}
-          <div className="w-full flex flex-col items-center justify-center gap-1">
-            {objects.map((obj, index) => (
-              <li key={index} className="list-none w-full">
-                {AreaListItem({
-                  area: obj,
-                  curArea: currentObject,
-                  onClick: handleTabClick,
-                  onDelete: handleObjectDelete,
-                })}
-              </li>
-            ))}
-          </div>
+    <div className={styles.mainPage}>
+      <div className={styles.areasSidebar}>
+        <div className={styles.areaCreateForm}>
+          <input
+            className={`${styles.areaFormInput} ${objectNameError ? styles.areaFormInputError : ""}`}
+            type="text"
+            value={objectName}
+            placeholder="Введите название"
+            onChange={(e) => handleObjectNameChange(e)}
+          />
+          {objectNameError && (
+            <p className={styles.areaFormErrorText}>
+              Объект с таким названием уже существует
+            </p>
+          )}
+          <button className={styles.areaFormButton} onClick={handleObjectSave}>
+            Добавить объект
+          </button>
         </div>
-        <div className="w-4/5 h-screen pt-10">
-          <div className="h-full bg-white pt-4">
-            {objects.length > 0 && (
-              <div className="w-full flex flex-col justify-center">
-                <div className="flex items-center justify-center mb-1">
-                  <input
-                    className="h-10 p-1 mr-1 outline-none border rounded border-gray-400"
-                    type="date"
-                    value={date}
-                    placeholder="Дата"
-                    onChange={(e) => handleDateChange(e)}
-                  />
-                  <input
-                    className="h-10 p-1 mr-1 outline-none border rounded border-gray-400"
-                    type="number"
-                    value={el}
-                    placeholder="Эл-во"
-                    onChange={(e) => handleElChange(e)}
-                  />
-                  <input
-                    className="h-10 p-1 mr-1 outline-none border rounded border-gray-400"
-                    type="number"
-                    value={water}
-                    placeholder="Вода"
-                    onChange={(e) => handleWaterChange(e)}
-                  />
-                  <button
-                    className="h-10 px-2 rounded bg-gray-700 text-white"
-                    onClick={handleSaveIndication}
-                  >
-                    Добавить
-                  </button>
-                </div>
-                {currentObject &&
-                  Object.keys(currentObject).length !== 0 &&
-                  IndicationsList({
-                    data: curData,
-                    onDelete: handleDeleteIndication,
-                  })}
-              </div>
-            )}
-          </div>
-        </div>
+        {objects.length === 0 && (
+          <p className={styles.areasListEmpty}>Список пуст</p>
+        )}
+        <ul className={styles.areasList}>
+          {objects.map((obj, index) => (
+            <li key={index}>
+              {AreaListItem({
+                area: obj,
+                curArea: currentObject,
+                onClick: handleTabClick,
+                onDelete: handleObjectDelete,
+              })}
+            </li>
+          ))}
+        </ul>
       </div>
-    </>
+      <div className={styles.indicationsContent}>
+        {objects.length === 0 && (
+          <p className={styles.indicationsEmpty}>Создайте объект</p>
+        )}
+        {objects.length > 0 && currentObject && (
+          <div className={styles.indicationsWrapper}>
+            <div className={styles.indicationCreateForm}>
+              <input
+                className={styles.indicationFormInput}
+                type="date"
+                value={date}
+                placeholder="Дата"
+                onChange={(e) => handleDateChange(e)}
+              />
+              <input
+                className={styles.indicationFormInput}
+                type="number"
+                value={el}
+                placeholder="Эл-во"
+                onChange={(e) => handleElChange(e)}
+              />
+              <input
+                className={styles.indicationFormInput}
+                type="number"
+                value={water}
+                placeholder="Вода"
+                onChange={(e) => handleWaterChange(e)}
+              />
+              <button
+                className={styles.indicationFormButton}
+                onClick={handleSaveIndication}
+              >
+                Добавить
+              </button>
+            </div>
+            {currentObject &&
+              Object.keys(currentObject).length !== 0 &&
+              IndicationsList({
+                data: curData,
+                onDelete: handleDeleteIndication,
+              })}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

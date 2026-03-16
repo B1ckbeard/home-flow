@@ -13,15 +13,20 @@ interface Props {
 }
 
 const AreaListItem = ({ area, curArea, onClick, onDelete }: Props) => {
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onDelete();
+  };
+
   return (
     <div
-      onClick={(e) => onClick(e)}
-      className={`${styles.item}${area.name === curArea?.name ? styles.active : ""}`}
+      onClick={onClick}
+      className={`${styles.item} ${area.name === curArea?.name ? styles.active : ""}`}
     >
-      {area.name}
+      <span className={styles.itemText}>{area.name}</span>
       {area.name === curArea?.name && (
-        <button onClick={onDelete}>
-          <MdDeleteForever className={styles.deleteButton} />
+        <button onClick={handleDelete} className={styles.deleteButton}>
+          <MdDeleteForever className={styles.deleteIcon} />
         </button>
       )}
     </div>
