@@ -1,0 +1,53 @@
+.indicationsContent {
+    flex: 1;
+    overflow-y: auto;
+    background: #ffffff;
+    padding: 24px;
+}
+
+.indicationsEmpty {
+    text-align: center;
+    padding: 48px 20px;
+    color: #6b7280;
+    font-size: 14px;
+    background: #f9fafb;
+    border-radius: 12px;
+    margin: 0;
+}
+
+.indicationsWrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 48px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.loader::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border: 2px solid #e5e7eb;
+    border-top-color: #6b7280;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .indicationsContent {
+        padding: 16px;
+    }
+}

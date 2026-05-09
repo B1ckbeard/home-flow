@@ -1,31 +1,35 @@
 import { Router } from "express";
-import { saveObject, getObjects, deleteObject, deleteAllObjects, getObjIndications } from "../controllers/objects.js";
+import {
+  saveObject,
+  getObjects,
+  deleteObject,
+  deleteAllObjects,
+  getObjIndications,
+  getObjectById,
+  updateObjectMeters,
+} from "../controllers/objects.js";
 
-const router = new Router()
+const router = new Router();
 
-// Get
-// http://localhost:3001/api/objects
-router.get('/', getObjects)
+// Get all objects
+router.get("/", getObjects);
 
-// Save
-// http://localhost:3001/api/objects/save
-router.post('/save', saveObject)
+// Get object by id
+router.get("/:id", getObjectById);
 
-// Delete
-// http://localhost:3001/api/objects/delete/:id
-// поменять на http://localhost:3001/api/objects/:id/delete
-router.post('/delete/:id', deleteObject)
+// Get object indications
+router.get("/:id/indications", getObjIndications);
 
-// Delete all
-// http://localhost:3001/api/objects/delete/all
-router.get('/delete/all', deleteAllObjects)
+// Update object meters
+router.put("/:id/meters", updateObjectMeters);
 
-// Get By Id
-// http://localhost:3002/api/objects/:id
+// Save object
+router.post("/save", saveObject);
 
-// Get Obj Indications
-// http://localhost:3001/api/objects/indications/:id
-// поменять на http://localhost:3001/api/objects/:id/indications
-router.get('/indications/:id', getObjIndications)
+// Delete object 
+router.delete("/:id", deleteObject);
 
-export default router
+// Delete all objects
+router.delete("/", deleteAllObjects);
+
+export default router;

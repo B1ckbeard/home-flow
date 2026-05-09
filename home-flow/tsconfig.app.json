@@ -7,6 +7,7 @@
     "module": "ESNext",
     "types": ["vite/client"],
     "skipLibCheck": true,
+    "ignoreDeprecations": "6.0",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -28,5 +29,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*", "src/shared/interfaces/vite-env.d.ts"],
+  "include": ["src/**/*", "src/shared/interfaces/vite-env.d.ts"]
 }
