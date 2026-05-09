@@ -1,0 +1,144 @@
+.areasSidebar {
+    width: 300px;
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.areaCreateForm {
+    padding: 20px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+.areaFormInput {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: white;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+}
+
+.areaFormInput:focus {
+    outline: none;
+    border-color: #6b7280;
+    box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
+}
+
+.areaFormInputError {
+    border-color: #ef4444;
+}
+
+.areaFormInputError:focus {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.areaFormButton {
+    width: 100%;
+    padding: 10px 16px;
+    background: #374151;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.areaFormButton:hover:not(:disabled) {
+    background: #1f2937;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.areaFormButton:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.areaFormErrorText {
+    font-size: 12px;
+    color: #ef4444;
+    margin: -8px 0 12px 0;
+    padding-left: 4px;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.loader::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border: 2px solid #e5e7eb;
+    border-top-color: #6b7280;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.areasListEmpty {
+    text-align: center;
+    padding: 48px 20px;
+    color: #6b7280;
+    font-size: 14px;
+    background: #f9fafb;
+    margin: 0;
+}
+
+.areasList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+}
+
+.areasList li {
+    margin: 0;
+    padding: 8px 12px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.areasList li:last-child {
+    border-bottom: none;
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    .areasSidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        max-height: 300px;
+    }
+
+    .areaCreateForm {
+        padding: 16px;
+    }
+
+    .areasList li {
+        padding: 6px 12px;
+    }
+}

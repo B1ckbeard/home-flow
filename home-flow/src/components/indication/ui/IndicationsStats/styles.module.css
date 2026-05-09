@@ -1,0 +1,162 @@
+.statistics {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.statisticsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.statisticsTitle {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #6b7280;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.closeButton:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+}
+
+.statsCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.statsCard {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s;
+}
+
+.statsCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.statsCardTitle {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 8px;
+}
+
+.statsCardValue {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.statsCardSubtitle {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.chartSection {
+    margin-bottom: 40px;
+}
+
+.chartTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.tableSection {
+    margin-top: 32px;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.dataTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.dataTable th,
+.dataTable td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.dataTable th {
+    background: #f9fafb;
+    font-weight: 600;
+    color: #374151;
+    font-size: 13px;
+}
+
+.dataTable td {
+    color: #1f2937;
+}
+
+.tableMonth {
+    font-weight: 500;
+    color: #374151;
+}
+
+.dataTable tr:hover td {
+    background-color: #f9fafb;
+}
+
+@media (max-width: 768px) {
+    .statistics {
+        padding: 16px;
+    }
+
+    .statisticsTitle {
+        font-size: 20px;
+    }
+
+    .statsCards {
+        grid-template-columns: 1fr;
+    }
+
+    .statsCardValue {
+        font-size: 24px;
+    }
+
+    .chartTitle {
+        font-size: 16px;
+    }
+
+    .dataTable th,
+    .dataTable td {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}

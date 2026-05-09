@@ -1,58 +1,459 @@
 .indicationsList {
     width: 100%;
-    height: 100%;
+    overflow-x: auto;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
 }
 
 .emptyListText {
     text-align: center;
-    color: #333333;
-    font-size: 16px;
+    padding: 48px 20px;
+    color: #6b7280;
+    font-size: 14px;
+    background: #f9fafb;
+    border-radius: 12px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.emptyListText::before {
+    content: '📋';
+    font-size: 48px;
+    opacity: 0.5;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+    border-radius: 12px;
 }
 
 .table {
     width: 100%;
-    border: 1px solid #333333;
-    border-radius: 4px;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 600px;
 }
 
 .tableHead {
-    border-radius: 4px;
-    background-color: #bbbbbb;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-.tableHeadRow {
-    height: 40px;
-    border-bottom: 1px solid #333333;
+.tableHeadRow th {
+    padding: 14px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #374151;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.2s;
 }
 
-.tableRow {
-    height: 40px;
+.tableHeadRow th:hover {
+    background-color: #f3f4f6;
+    cursor: pointer;
 }
 
 .tableBody {
-    text-align: center;
+    background: #ffffff;
+}
+
+.tableRow {
+    border-bottom: 1px solid #f3f4f6;
+    transition: all 0.2s ease;
+}
+
+.tableRow:hover {
+    background-color: #f9fafb;
+    transform: translateX(2px);
+}
+
+.tableRow td {
+    padding: 12px;
+    color: #1f2937;
+    font-size: 14px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.diff {
+    font-weight: 500;
+    color: #10b981;
+    background-color: #f0fdf4;
+    border-radius: 6px;
+}
+
+.first {
+    font-weight: 400;
+    color: #9ca3af;
+    font-style: italic;
+    background-color: #f9fafb;
+}
+
+.error {
+    font-weight: 500;
+    color: #ef4444;
+    background-color: #fef2f2;
+    border-radius: 6px;
 }
 
 .tableDeleteItem {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    width: 50px;
 }
 
 .deleteButton {
-    width: 35px;
-    height: 35px;
-    cursor: pointer;
+    background: none;
     border: none;
-    background-color: transparent;
-    display: flex;
+    cursor: pointer;
+    padding: 6px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    border-radius: 6px;
+    transition: all 0.2s;
+    color: #9ca3af;
+}
+
+.deleteButton:hover {
+    background-color: #fef2f2;
+    color: #ef4444;
+    transform: scale(1.1);
+}
+
+.deleteButton:active {
+    transform: scale(0.95);
 }
 
 .deleteIcon {
-    width: 100%;
-    height: 100%;
-    fill: #ef4444;
+    width: 18px;
+    height: 18px;
+}
+
+.paymentBlock {
+    margin-top: 24px;
+    padding: 20px;
+    background: #f9fafb;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.paymentTitle {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.paymentTitle::before {
+    content: '💰';
+    font-size: 18px;
+}
+
+.paymentDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.paymentItem {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s;
+}
+
+.paymentItem:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transform: translateX(2px);
+}
+
+.paymentItemHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.paymentItemName {
+    font-weight: 600;
+    font-size: 14px;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.paymentItemName::before {
+    content: '📊';
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.paymentItemCost {
+    font-weight: 700;
+    font-size: 16px;
+    color: #1f2937;
+}
+
+.paymentItemDetails {
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 8px;
+}
+
+.paymentItemDetails span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.paymentItemDetails span::before {
+    content: '•';
+    color: #9ca3af;
+}
+
+.paymentItemDetails span:first-child::before {
+    content: '';
+    display: none;
+}
+
+.paymentItemSewage {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #e5e7eb;
+}
+
+.paymentItemSewage .paymentItemHeader {
+    margin-bottom: 6px;
+}
+
+.paymentItemSewage .paymentItemName {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.paymentItemSewage .paymentItemName::before {
+    content: '💧';
+    font-size: 11px;
+}
+
+.paymentItemSewage .paymentItemCost {
+    font-size: 14px;
+    color: #059669;
+}
+
+.paymentTotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    margin-top: 8px;
+    border-top: 2px solid #e5e7eb;
+}
+
+.totalLabel {
+    font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.totalAmount {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1f2937;
+    position: relative;
+}
+
+.totalAmount::after {
+    content: '₽';
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 4px;
+    color: #6b7280;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.indicationsList {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.paymentBlock {
+    animation: fadeIn 0.3s ease-out 0.1s both;
+}
+
+.tableWrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.tableWrapper::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 4px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 48px 20px;
+    background: #f9fafb;
+    border-radius: 12px;
+}
+
+.emptyStateIcon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.emptyStateText {
+    color: #6b7280;
+    font-size: 14px;
+    margin: 0;
+}
+
+.tableRowActive {
+    background-color: #f9fafb;
+    border-left: 3px solid #6b7280;
+}
+
+.tableRow:nth-child(even) {
+    background-color: #fefefe;
+}
+
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background: #1f2937;
+    color: white;
+    font-size: 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.statisticsButtonWrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.statisticsButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.statisticsButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.statisticsIcon {
+    width: 18px;
+    height: 18px;
+}
+
+@media (max-width: 768px) {
+    .tableHeadRow th {
+        padding: 10px 8px;
+        font-size: 11px;
+    }
+
+    .tableRow td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .paymentBlock {
+        padding: 16px;
+    }
+
+    .paymentItem {
+        padding: 12px;
+    }
+
+    .paymentItemHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .paymentItemCost {
+        font-size: 15px;
+    }
+
+    .paymentItemDetails {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .paymentItemDetails span::before {
+        display: none;
+    }
+
+    .totalAmount {
+        font-size: 18px;
+    }
+
+    .totalLabel {
+        font-size: 14px;
+    }
 }
